@@ -1,19 +1,17 @@
-let container = document.querySelector('.container');
-let div = document.querySelector('div');
-let body = document.querySelector('body');
-let btn = document.createElement('button');
-btn.style.width = '60px';
-btn.style.height = '20px';
-btn.style.alignSelf = 'flex-end';
-btn.innerHTML = 'hellp';
-body.appendChild(btn);
+const container = document.querySelector('.container');
+const div = document.querySelector('div');
+const createBtn = document.getElementById('create-grid');
+const defaultColorBtn = document.getElementById('default-color');
+const randColorBtn = document.getElementById('random-color');
+const colorShadeBtn = document.getElementById('color-shade');
+const clearBtn = document.getElementById('clear-grid');
 
 function createGrid(x, y) {
 	let divW = 100 / x;
 	let divH = 100 / y;
 	for (let i = 0; i < x; i++) {
 		for (let j = 0; j < y; j++) {
-			let div = document.createElement('div');
+			const div = document.createElement('div');
 			div.style.width = `${divW}%`;
 			div.style.height = `${divH}%`;
 			div.style.display = 'inline-block';
@@ -24,11 +22,13 @@ function createGrid(x, y) {
 
 createGrid(16, 16);
 
+div.setAttribute('data-passes', 0);
+
 div.addEventListener('mouseover', (e) => {
 	e.target.style.background = 'black';
 });
 
-btn.onclick = () => {
+createBtn.onclick = () => {
 	while (container.firstChild) {
 		container.removeChild(container.firstChild);
 	}
@@ -41,4 +41,11 @@ function randRGB() {
 	let g = Math.floor(Math.random() * 256);
 	let b = Math.floor(Math.random() * 256);
 	return `rgb(${r},${g},${b})`;
+}
+
+function increaseBlackLevel() {
+	const passes = Number(e.target.getAttribute('data-passes'));
+	const c = 250 - 25 * passes;
+	e.target.style.background = `rgb(${c},${c},${c})`;
+	e.target.setAttribute('data-passes', passes + 1);
 }
