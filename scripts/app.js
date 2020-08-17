@@ -35,14 +35,16 @@ div.addEventListener('mouseover', (e) => {
 		increaseBlackLevel(e.target);
 	}
 });
-
+let gridSize;
 createBtn.onclick = () => {
-	let gridSize = window.prompt(`Enter Grid Size: `, '16');
-	if (gridSize > 0) {
+	gridSize = window.prompt(`Enter Grid Size (MAX SIZE: 120): `, '16');
+	if (gridSize > 0 && gridSize < 121) {
 		while (container.firstChild) {
 			container.removeChild(container.firstChild);
 		}
 		createGrid(gridSize, gridSize);
+	} else {
+		alert('Enter a number between 0 and 120');
 	}
 };
 
@@ -68,7 +70,7 @@ clearBtn.onclick = () => {
 	while (container.firstChild) {
 		container.removeChild(container.firstChild);
 	}
-	createGrid(16, 16);
+	createGrid(gridSize, gridSize);
 };
 
 function randRGB() {
