@@ -6,6 +6,8 @@ const randColorBtn = document.getElementById('random-color');
 const colorShadeBtn = document.getElementById('color-shade');
 const clearBtn = document.getElementById('clear-grid');
 let isRandColor = false;
+let isColorShade = false;
+let isDefaultColor = true;
 
 function createGrid(x, y) {
 	let divW = 100 / x;
@@ -25,9 +27,12 @@ createGrid(16, 16);
 
 div.setAttribute('data-passes', 0);
 div.addEventListener('mouseover', (e) => {
-	e.target.style.background = 'black';
-	if (isRandColor) {
+	if (isDefaultColor) {
+		e.target.style.background = 'black';
+	} else if (isRandColor) {
 		e.target.style.background = randRGB();
+	} else if (isColorShade) {
+		increaseBlackLevel(e.target);
 	}
 });
 
@@ -41,10 +46,27 @@ createBtn.onclick = () => {
 
 randColorBtn.onclick = () => {
 	isRandColor = true;
+	isDefaultColor = false;
+	isColorShade = false;
 };
 
 defaultColorBtn.onclick = () => {
+	isDefaultColor = true;
 	isRandColor = false;
+	isColorShade = false;
+};
+
+colorShadeBtn.onclick = () => {
+	isColorShade = true;
+	isRandColor = false;
+	isDefaultColor = false;
+};
+
+clearBtn.onclick = () => {
+	while (container.firstChild) {
+		container.removeChild(container.firstChild);
+	}
+	createGrid(16, 16);
 };
 
 function randRGB() {
@@ -54,9 +76,9 @@ function randRGB() {
 	return `rgb(${r},${g},${b})`;
 }
 
-function increaseBlackLevel() {
-	const passes = Number(e.target.getAttribute('data-passes'));
+function increaseBlackLevel(trgt) {
+	const passes = Number(trgt.getAttribute('data-passes'));
 	const c = 250 - 25 * passes;
-	e.target.style.background = `rgb(${c},${c},${c})`;
-	e.target.setAttribute('data-passes', passes + 1);
+	trgt.style.background = `rgb(${c},${c},${c})`;
+	trgt.setAttribute('data-passes', passes + 1);
 }
