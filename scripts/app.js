@@ -37,11 +37,13 @@ div.addEventListener('mouseover', (e) => {
 });
 
 createBtn.onclick = () => {
-	while (container.firstChild) {
-		container.removeChild(container.firstChild);
-	}
 	let gridSize = window.prompt(`Enter Grid Size: `, '16');
-	createGrid(gridSize, gridSize);
+	if (gridSize > 0) {
+		while (container.firstChild) {
+			container.removeChild(container.firstChild);
+		}
+		createGrid(gridSize, gridSize);
+	}
 };
 
 randColorBtn.onclick = () => {
