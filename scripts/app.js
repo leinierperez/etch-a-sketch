@@ -5,6 +5,7 @@ const defaultColorBtn = document.getElementById('default-color');
 const randColorBtn = document.getElementById('random-color');
 const colorShadeBtn = document.getElementById('color-shade');
 const clearBtn = document.getElementById('clear-grid');
+let isRandColor = false;
 
 function createGrid(x, y) {
 	let divW = 100 / x;
@@ -23,9 +24,11 @@ function createGrid(x, y) {
 createGrid(16, 16);
 
 div.setAttribute('data-passes', 0);
-
 div.addEventListener('mouseover', (e) => {
 	e.target.style.background = 'black';
+	if (isRandColor) {
+		e.target.style.background = randRGB();
+	}
 });
 
 createBtn.onclick = () => {
@@ -34,6 +37,14 @@ createBtn.onclick = () => {
 	}
 	let gridSize = window.prompt(`Enter Grid Size: `, '16');
 	createGrid(gridSize, gridSize);
+};
+
+randColorBtn.onclick = () => {
+	isRandColor = true;
+};
+
+defaultColorBtn.onclick = () => {
+	isRandColor = false;
 };
 
 function randRGB() {
