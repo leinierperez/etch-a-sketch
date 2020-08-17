@@ -28,7 +28,7 @@ createGrid(16, 16);
 div.setAttribute('data-passes', 0);
 div.addEventListener('mouseover', (e) => {
 	if (isDefaultColor) {
-		e.target.style.background = 'black';
+		e.target.style.background = 'white';
 	} else if (isRandColor) {
 		e.target.style.background = randRGB();
 	} else if (isColorShade) {
