@@ -35,16 +35,18 @@ div.addEventListener('mouseover', (e) => {
 		increaseBlackLevel(e.target);
 	}
 });
-let gridSize;
+let gridSize = 16;
 createBtn.onclick = () => {
-	gridSize = window.prompt(`Enter Grid Size (MAX SIZE: 120): `, '16');
+	do {
+		gridSize = window.prompt(`Enter Grid Size (MAX SIZE: 120): `, '16');
+	} while (gridSize < 0 || gridSize > 120);
 	if (gridSize > 0 && gridSize < 121) {
 		while (container.firstChild) {
 			container.removeChild(container.firstChild);
 		}
 		createGrid(gridSize, gridSize);
-	} else {
-		alert('Enter a number between 0 and 120');
+	} else if (gridSize === null) {
+		gridSize = 16;
 	}
 };
 
@@ -67,10 +69,12 @@ colorShadeBtn.onclick = () => {
 };
 
 clearBtn.onclick = () => {
-	while (container.firstChild) {
-		container.removeChild(container.firstChild);
+	if (gridSize > 0 && gridSize < 121) {
+		while (container.firstChild) {
+			container.removeChild(container.firstChild);
+		}
+		createGrid(gridSize, gridSize);
 	}
-	createGrid(gridSize, gridSize);
 };
 
 function randRGB() {
