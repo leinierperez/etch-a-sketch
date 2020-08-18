@@ -1,4 +1,4 @@
-const container = document.querySelector('.container');
+const container = document.querySelector('#container');
 const div = document.querySelector('div');
 const createBtn = document.getElementById('create-grid');
 const defaultColorBtn = document.getElementById('default-color');
@@ -18,6 +18,7 @@ function createGrid(x, y) {
 			div.style.width = `${divW}%`;
 			div.style.height = `${divH}%`;
 			div.style.display = 'inline-block';
+			div.style.float = 'left';
 			container.appendChild(div);
 		}
 	}
@@ -27,14 +28,15 @@ createGrid(16, 16);
 
 div.setAttribute('data-passes', 0);
 div.addEventListener('mouseover', (e) => {
-	if (isDefaultColor) {
+	if (isDefaultColor && e.target.id !== 'container') {
 		e.target.style.background = 'white';
-	} else if (isRandColor) {
+	} else if (isRandColor && e.target.id !== 'container') {
 		e.target.style.background = randRGB();
-	} else if (isColorShade) {
+	} else if (isColorShade && e.target.id !== 'container') {
 		increaseBlackLevel(e.target);
 	}
 });
+
 let gridSize = 16;
 createBtn.onclick = () => {
 	do {

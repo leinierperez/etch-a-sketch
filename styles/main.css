@@ -24,11 +24,10 @@ section {
 	margin-top: 40px;
 }
 
-.container {
+#container {
 	width: 600px;
 	height: 600px;
 	background: #5c677d;
-	line-height: 0;
 }
 
 .options {
